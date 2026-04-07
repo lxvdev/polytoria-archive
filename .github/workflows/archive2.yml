@@ -1,8 +1,11 @@
+# This is a basic workflow to help you get started with Actions
+
 name: Archive Polytoria Builds
 
+# Controls when the workflow will run
 on:
   schedule:
-    - cron: "0 14 * * *"
+    - cron: "0 0 * * *"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -10,11 +13,16 @@ on:
 permissions:
   contents: write # needed for gh CLI to create/edit releases
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "archive"
   archive:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       # Checkout repo (needed for versions.json)
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -28,19 +36,20 @@ jobs:
       # Install dependencies
       - name: Install dependencies
         run: |
-          pip install requests
+          pip install requests packaging
 
       # Run archive script
       - name: Run archive script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # gh CLI uses this token automatically
+          GITHUB_REPOSITORY: ${{ github.repository }}
         run: python archiver.py
 
       # Commit updated versions.json
-      - name: Commit version history
+      - name: Commit versions
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
           git add versions.json
-          git commit -m "Update versions.json" || echo "No changes to commit"
+          git commit -m "Update versions.json" || echo "No changes"
           git push

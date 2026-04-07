@@ -119,6 +119,7 @@ def run():
         version = info["Version"]
         url = info["Download"]
         component_data = versions[component]
+        
         known_versions = list(component_data.keys())
 
         rollback = is_rollback(version, known_versions)
