@@ -15,11 +15,11 @@ def parse_version(v: str):
     return tuple(map(int, v.split(".")))
 
 # def sha256_file(path):
-    h = hashlib.sha256()
-    with open(path, "rb") as f:
-        while chunk := f.read(8192):
-            h.update(chunk)
-    return h.hexdigest()
+#    h = hashlib.sha256()
+#    with open(path, "rb") as f:
+#        while chunk := f.read(8192):
+#            h.update(chunk)
+#    return h.hexdigest()
 
 def load_versions():
     if not os.path.exists(VERSIONS_FILE):
