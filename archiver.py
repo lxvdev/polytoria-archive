@@ -81,10 +81,11 @@ def process_component(component: str, info: dict, stored: dict, updated: dict):
 
     # Upload new version
     if not prev_version or parse_version(version) > parse_version(prev_version):
-        if gh_release_exists(tag):
+        if not gh_release_exists(tag):
+            gh_create_release(tag, name, body, path)
+        else:
             gh_update_release(tag, f"{name} (Superseded)") # Mark old release as superseded (rollback occured)
             
-        gh_create_release(tag, name, body, path)
         updated[component] = {"version": version}
         return
 
