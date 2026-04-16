@@ -1,4 +1,4 @@
-name: Archive Polytoria Builds
+name: Archive Polytoria Stable Builds
 
 on:
   schedule:

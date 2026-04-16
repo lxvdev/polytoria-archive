@@ -1,4 +1,4 @@
-name: Archive Polytoria Builds
+name: Archive Polytoria Beta Builds
 
 on:
   workflow_dispatch:
