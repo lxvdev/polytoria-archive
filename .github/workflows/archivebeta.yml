@@ -1,0 +1,42 @@
+name: Archive Polytoria Builds
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write # needed for gh CLI to create/edit releases
+
+jobs:
+  # This workflow contains a single job called "archive"
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout repo (needed for versions.json)
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Set up Python
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      # Run archive script
+      - name: Run archive script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # gh CLI uses this token automatically
+        run: python archiver_beta.py
+
+      # Commit updated versions.json
+      - name: Commit version history
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add versions.json
+          git commit -m "Update versions.json" || echo "No changes to commit"
+          git push
