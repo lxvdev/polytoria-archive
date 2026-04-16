@@ -79,9 +79,9 @@ def process_component(component: str, info: dict, stored: dict, updated: dict):
     filename = f"{component}-{version}{ext}"
     path = download_file(url, filename)
 
-    tag = f"{component}-beta-{version}"
-    name = f"{component} {version} (Beta)"
-    body = f"Archived {component} {version} (Beta) at {datetime.utcnow().isoformat()} UTC"
+    tag = f"{component}-{version}"
+    name = f"{component} {version}"
+    body = f"Archived {component} {version} at {datetime.utcnow().isoformat()} UTC"
 
     # Upload new version
     if not prev_version or parse_version(version) > parse_version(prev_version):
