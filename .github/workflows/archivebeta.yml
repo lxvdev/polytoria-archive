@@ -30,6 +30,7 @@ jobs:
       - name: Run archive script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # gh CLI uses this token automatically
+          POLYTORIA_TOKEN: ${{ secrets.POLYTORIA_TOKEN }}
         run: python archiver_beta.py
 
       # Commit updated versions.json

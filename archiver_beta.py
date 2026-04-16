@@ -4,10 +4,16 @@ import hashlib
 import requests
 from datetime import datetime
 import subprocess
+import sys
 
 API_URL = "https://api.polytoria.com/v1/launcher/updates?os=windows&release=beta"
-HEADERS = {"User-Agent": "PolytoriaLauncher/1.0"}
 VERSIONS_FILE = "versions_beta.json"
+
+TOKEN = os.getenv("POLYTORIA_TOKEN")
+
+HEADERS = {"User-Agent": "PolytoriaLauncher/1.0"}
+if TOKEN:
+    HEADERS["Authorization"] = TOKEN
 
 COMPONENTS = ["Creator", "Client"]
 
