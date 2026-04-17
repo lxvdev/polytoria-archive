@@ -19,9 +19,16 @@ COMPONENTS = ["Creator", "Client"]
 
 def parse_version(v: str):
     """Parse version string into comparable tuple (handles beta versions like 2.0.0-beta81)"""
-    # Remove beta suffix for comparison
-    base_version = v.split("-")[0]
-    return tuple(map(int, base_version.split(".")))
+    parts = v.split("-")
+    base_version = tuple(map(int, parts[0].split(".")))
+    
+    # If there's a beta suffix, extract the number
+    if len(parts) > 1 and parts[1].startswith("beta"):
+        beta_num = int(parts[1][4:])  # Extract number after "beta"
+        return base_version + (0, beta_num)  # 0 indicates beta, then beta number
+    
+    # For stable versions, append 1 to make them sort higher than beta
+    return base_version + (1,)
 
 def load_versions():
     if not os.path.exists(VERSIONS_FILE):
