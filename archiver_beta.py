@@ -45,7 +45,7 @@ def download_file(url: str, filename: str):
         print(f"    File {filename} already exists, skipping download")
         return filename
     
-    print(f"    Downloading from {url}...")
+    print(f"    Downloading from {url} ...")
     with requests.get(url, headers=HEADERS, stream=True) as r:
         r.raise_for_status()
         with open(filename, "wb") as f:
