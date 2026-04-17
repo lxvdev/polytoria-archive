@@ -35,14 +35,17 @@ def save_versions(versions):
 
 def download_file(url: str, filename: str):
     if os.path.exists(filename):
+        print(f"    File {filename} already exists, skipping download")
         return filename
     
+    print(f"    Downloading from {url}...")
     with requests.get(url, headers=HEADERS, stream=True) as r:
         r.raise_for_status()
         with open(filename, "wb") as f:
             for chunk in r.iter_content(8192):
                 if chunk:
                     f.write(chunk)
+    print(f"    Download complete")
     return filename
 
 
@@ -73,11 +76,16 @@ def process_component(component: str, info: dict, stored: dict, updated: dict):
 
     # Ignore if version is unchanged
     if prev_version == version:
+        print(f"  {component} version {version} is unchanged, skipping...")
         return
 
+    print(f"  New version detected: {version} (previous: {prev_version})")
+    
     ext = os.path.splitext(url)[1] or ".unk"
     filename = f"{component}-{version}{ext}"
+    print(f"  Downloading {filename}...")
     path = download_file(url, filename)
+    print(f"  Downloaded to {path}")
 
     tag = f"{component}-{version}"
     name = f"{component} {version}"
@@ -86,30 +94,41 @@ def process_component(component: str, info: dict, stored: dict, updated: dict):
     # Upload new version
     if not prev_version or parse_version(version) > parse_version(prev_version):
         if not gh_release_exists(tag):
+            print(f"  Creating new GitHub release: {tag}")
             gh_create_release(tag, name, body, path)
         else:
+            print(f"  Release {tag} already exists, updating...")
             gh_update_release(tag, f"{name} (Superseded)") # Mark old release as superseded (rollback occured)
             
         updated[component] = {"version": version}
+        print(f"  {component} updated successfully")
         return
 
 def main():
+    print("Starting archive process (beta)...")
     stored_versions = load_versions()
+    print(f"Loaded stored versions: {stored_versions}")
 
+    print(f"Fetching updates from {API_URL}")
     response = requests.get(API_URL, headers=HEADERS)
     response.raise_for_status()
     data = response.json()
+    print("Successfully fetched API data")
 
     updated_versions = dict(stored_versions)
 
     for component in COMPONENTS:
         info = data.get(component)
         if not info:
+            print(f"No data found for {component}")
             continue
 
+        print(f"Processing {component}...")
         process_component(component, info, stored_versions, updated_versions)
 
+    print("Updating versions in file...")
     save_versions(updated_versions)
+    print("Archive process completed successfully")
 
 if __name__ == "__main__":
     main()
