@@ -1,7 +1,7 @@
 # Polytoria Archive
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
-[![GitHub Repo stars](https://img.shields.io/github/stars/lxvdev/polytoria-archive?style=for-the-badge)](https://github.com/lxvdev/Edulink/stargazers)
+[![GitHub Repo stars](https://img.shields.io/github/stars/lxvdev/polytoria-archive?style=for-the-badge)](https://github.com/lxvdev/polytoria-archive/stargazers)
 [![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/lxvdev/polytoria-archive/total?style=for-the-badge)](https://github.com/lxvdev/polytoria-archive/releases)
 
 This repository periodically fetches the Polytoria API and downloads new versions of the client and creator when updates are available, then publishes them as GitHub releases.
