@@ -2,7 +2,7 @@ name: Archive Polytoria Builds
 
 on:
   schedule:
-    - cron: "0 */6 * * *"
+    - cron: "0 */10 * * *"
   workflow_dispatch:
     inputs:
       release:
@@ -20,9 +20,11 @@ permissions:
 jobs:
   archive:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        release: ${{ github.event_name == 'schedule' && fromJson('["stable", "beta"]') || fromJson(format('["{0}"]', github.event.inputs.release)) }}
     env:
-      RELEASE: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.release || 'stable' }}
-      POLYTORIA_TOKEN: ${{ secrets.POLYTORIA_TOKEN }}
+      RELEASE: ${{ matrix.release }}
       PT_AUTH: ${{ secrets.PT_AUTH }}
     steps:
       - name: Checkout repository

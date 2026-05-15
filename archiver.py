@@ -144,6 +144,10 @@ def process_component(component: str, info: dict, stored: dict, updated: dict, h
         print(f"  {component} version {version} is unchanged, skipping...")
         return
 
+    if prev_version and parse_version(version) <= parse_version(prev_version):
+        print(f"  {component} version {version} is older than stored version {prev_version}, skipping...")
+        return
+
     print(f"  New version detected: {version} (previous: {prev_version})")
     ext = os.path.splitext(url)[1] or ".unk"
     filename = f"{component}-{version}{ext}"
@@ -153,16 +157,14 @@ def process_component(component: str, info: dict, stored: dict, updated: dict, h
     name = f"{component} {version}"
     body = f"Archived {component} {version} at {datetime.utcnow().isoformat()} UTC"
 
-    if not prev_version or parse_version(version) > parse_version(prev_version):
-        if not gh_release_exists(tag):
-            print(f"  Creating new GitHub release: {tag}")
-            gh_create_release(tag, name, body, path, prerelease)
-        else:
-            print(f"  Release {tag} already exists, updating...")
-            gh_update_release(tag, f"{name} (Superseded)", body)
+    if not gh_release_exists(tag):
+        print(f"  Creating new GitHub release: {tag}")
+        gh_create_release(tag, name, body, path, prerelease)
+    else:
+        print(f"  Release {tag} already exists, skipping...")
 
-        updated[component] = {"version": version}
-        print(f"  {component} updated successfully")
+    updated[component] = {"version": version}
+    print(f"  {component} updated successfully")
 
 
 def archive_release(release: str):
