@@ -1,8 +1,11 @@
 {
-  "Creator": {
-    "version": "1.5.6"
+  "stable": {
+    "Creator": {
+      "version": "2.0.3"
+    },
+    "Client": {
+      "version": "2.0.3"
+    }
   },
-  "Client": {
-    "version": "1.5.6"
-  }
+  "beta": {}
 }
