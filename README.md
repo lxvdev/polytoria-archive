@@ -6,7 +6,8 @@
 
 This repository periodically fetches the Polytoria API and downloads new versions of the client and creator when updates are available, then publishes them as GitHub releases.
 
-[Go to releases](https://github.com/lxvdev/polytoria-archive/releases)
+[Go to releases](https://github.com/lxvdev/polytoria-archive/releases) | [View archived versions](ARCHIVED_VERSIONS.md)
+
 
 ## Purpose
 
