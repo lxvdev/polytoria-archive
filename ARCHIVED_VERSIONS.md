@@ -15,6 +15,7 @@ This is a more organized list of the archived Polytoria builds (might not be upd
 | [2.0.0-beta83](https://github.com/lxvdev/polytoria-archive/releases/tag/Creator-2.0.0-beta83) | 2026-04-17T22:04:08Z | beta | TODO |
 | [2.0.0-beta82](https://github.com/lxvdev/polytoria-archive/releases/tag/Creator-2.0.0-beta82) | 2026-04-24T19:05:05Z | beta | TODO |
 | [2.0.0-beta81](https://github.com/lxvdev/polytoria-archive/releases/tag/Creator-2.0.0-beta81) | 2026-04-16T10:49:00Z | beta | TODO |
+| [2.0.0-beta80](https://github.com/lxvdev/polytoria-archive/releases/tag/Creator-2.0.0-beta80) | 2026-04-16T10:49:00Z | beta | TODO |
 | [1.5.6](https://github.com/lxvdev/polytoria-archive/releases/tag/Creator-1.5.6) | 2026-04-07T19:53:49Z | stable | TODO |
 
 ## Client
@@ -30,4 +31,5 @@ This is a more organized list of the archived Polytoria builds (might not be upd
 | [2.0.0-beta83](https://github.com/lxvdev/polytoria-archive/releases/tag/Client-2.0.0-beta83) | 2026-04-17T22:04:14Z | beta | TODO |
 | [2.0.0-beta82](https://github.com/lxvdev/polytoria-archive/releases/tag/Client-2.0.0-beta82) | 2026-04-24T19:02:54Z | beta | TODO |
 | [2.0.0-beta81](https://github.com/lxvdev/polytoria-archive/releases/tag/Client-2.0.0-beta81) | 2026-04-16T10:49:04Z | beta | TODO |
+| [2.0.0-beta80](https://github.com/lxvdev/polytoria-archive/releases/tag/Client-2.0.0-beta80) | 2026-04-16T10:49:04Z | beta | TODO |
 | [1.5.6](https://github.com/lxvdev/polytoria-archive/releases/tag/Client-1.5.6) | 2026-04-07T19:53:55Z | stable | TODO |
